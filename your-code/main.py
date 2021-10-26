@@ -86,11 +86,15 @@ for i in range(x):
                                 f[i,j,k]=25
                         elif d[i,j,k]==d_mean:
                                 f[i,j,k]= 50
+                        elif d[i,j,k] == d_max:
+                                f[i,j,k] = 100 
+                        elif d[i,j,k] == d_min:
+                                f[i,j,k] = 0      
                         elif d[i,j,k] > d_mean:
                                 f[i,j,k] = 75
-                        else:
-                                f[i,j,k] = 100    
-print(f)
+                        
+                          
+
 
 
 
@@ -116,7 +120,8 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print(d)
+print(f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -130,3 +135,21 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+lista = []
+for a in d:
+        for b in a:
+                for c in b:
+                        if c==d_min:
+                                lista.append('A')
+                        if c == d_max:
+                                lista.append('E')
+                        if d_min < c <d_mean:
+                                lista.append('B')
+                        if c == d_mean:
+                                lista.append('C')
+                        if d_mean < c < d_max:
+                                lista.append('D')                                
+arrayB=np.array(lista)
+print(arrayB)
+arrayC= np.reshape(arrayB,(2,3,5))
+print(arrayC)
