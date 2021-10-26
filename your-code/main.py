@@ -1,72 +1,122 @@
 #1. Import the NUMPY package under the name np.
-
+import numpy as np
+from numpy.lib.npyio import zipfile_factory
 
 
 #2. Print the NUMPY version and the configuration.
-
+print(np.version.version)
 
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
+a = np.random.random((2,3,5))
 
 
 
 #4. Print a.
-
+print("\n\n")
+print("matriz a: ")
+print(a)
 
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
+b = np.ones((5,2,3))
 
 
 #6. Print b.
-
+print("\n\n")
+print("matriz b: ")
+print(b)
 
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
+print("\n\n")
+print("¿tienen a y b el mismo tamaño? ")
+print( a.size == b.size )
 
 
 
 #8. Are you able to add a and b? Why or why not?
+print("\n\n")
+try :
+        print(f"{a + b} es el resultado de sumar a y b" )
+except ValueError:
+        print(f"No es posible sumar a y b por que tienen formas distintas.")
+        print(f"a tiene la forma de {a.shape}")
+        print(f"b tiene la forma de {b.shape}")
+        
+except :
+        print(f"No es posible sumar a y b por un error diferente a ValueError (formas de las matrices)")
 
-
-
-#9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
+#9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). 
+# Assign the transposed array to varialbe "c".
+c = b.transpose(1,2,0)
+print("\n\n")
+print("matriz c: ")
+print(c)
 
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
+print("\n\n")
+print("matriz d: ")
+try :
+        d = a + c
+        print(f"{a + c} es el resultado de sumar a y c. Sí se pueden sumar porque tienen formas iguales" )
+except ValueError:
+        print(f"No es posible sumar a y c por que tienen formas distintas.")
+        print(f"a tiene la forma de {a.shape}")
+        print(f"c tiene la forma de {c.shape}")    
+except :
+        print(f"No es posible sumar a y c por un error diferente a ValueError (formas de las matrices)")
 
 
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
-
+print("\n\n")
+print("matriz a: ")
+print(a)
+print("\n")
+print("matriz d: ")
+print(d)
 
 
 
 #12. Multiply a and c. Assign the result to e.
-
-
+e = a * c
+print("\n\n")
+print("matriz e: ")
+print(f"{e} es el resultado de multiplicar a y c. Sí se pueden multiplicar porque tienen formas iguales" )
 
 #13. Does e equal to a? Why or why not?
-
-
-
+print("\n\n")
+print("matriz e es igual a a? : ")
+print(e == a)
+print("son iguales porque multiplicar e es como multiplicar a por 1")
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
+print("\n\n")
+d_max = d.max()
+print(f"Maximo de d es : {d_max}")
+d_min = d.min()
+print(f"Minimo de d es : {d_min}")
+d_mean = d.mean()
+print(f"Media de d es : {d_mean}")
 
+    
 
+#15. Now we want to label the values in d. 
+# First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-
-#15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
-
+f = np.empty((2,3,5))
+print("\n\n")
+print("matriz f empty: ")
+print(f)
 
 
 """
-#16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
+#16. Populate the values in f. 
+# For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
 If a value in d is larger than d_mean but smaller than d_max, assign 75 to the corresponding value in f.
 If a value equals to d_mean, assign 50 to the corresponding value in f.
 Assign 0 to the corresponding value(s) in f for d_min in d.
@@ -74,7 +124,23 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
+for x in range(d.shape[0]) :
+        for y in range(d.shape[1]) :
+                for z in range(d.shape[2]) :
+                        if d[x,y,z] > d_min and d[x,y,z] < d_mean :
+                                f[x,y,z] = 25
+                        elif d[x,y,z] > d_mean and d[x,y,z] < d_max :
+                                f[x,y,z] = 75
+                        elif d[x,y,z] == d_mean :
+                                f[x,y,z] = 50
+                        elif d[x,y,z] == d_min :
+                                f[x,y,z] = 0
+                        elif d[x,y,z] == d_max :
+                                f[x,y,z] = 100
 
+print("\n\n")
+print("matriz f despues de populate: ")
+print(f)                        
 
 
 
@@ -98,7 +164,11 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print("\n\n")
+print("matriz d: ")
+print(d)
+print("matriz f: ")
+print(f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -112,3 +182,24 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+g = np.empty((2,3,5),dtype=str)
+print("\n\n")
+print("matriz g empty: ")
+print(g)
+for x in range(d.shape[0]) :
+        for y in range(d.shape[1]) :
+                for z in range(d.shape[2]) :
+                        if d[x,y,z] > d_min and d[x,y,z] < d_mean :
+                                g[x,y,z] = 'B'
+                        elif d[x,y,z] > d_mean and d[x,y,z] < d_max :
+                                g[x,y,z] = 'D'
+                        elif d[x,y,z] == d_mean :
+                                g[x,y,z] = 'C'
+                        elif d[x,y,z] == d_min :
+                                g[x,y,z] = 'A'
+                        elif d[x,y,z] == d_max :
+                                g[x,y,z] = 'E'
+
+print("matriz g populated: ")
+print(g)    
