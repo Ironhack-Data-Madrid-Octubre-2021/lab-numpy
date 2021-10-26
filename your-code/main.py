@@ -1,68 +1,75 @@
 #1. Import the NUMPY package under the name np.
-
+import numpy as np
 
 
 #2. Print the NUMPY version and the configuration.
 
-
+print(np.version.version)
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-
+a = np.random.randint(1,9,size=(2,3,5))
+aa = np.random.random(((2,3,5)))
 
 #4. Print a.
-
-
+print(a)
+print(aa)
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
-
+b =np.ones((5,2,3))
 
 #6. Print b.
-
-
+print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
-
-
+print(a.size == b.size) #if it's true a and b are the same size. You have to print the result
 
 #8. Are you able to add a and b? Why or why not?
 
+#print(a + b)
 
+#valueError = operands could not be broadcast together with shapes (2,3,5) (5,2,3)
+#we can't add a and b because the have diferent shapes
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
+print(a.shape) #(2,3,5)
+print(b.shape) #(5,2,3)
 
-
+c = b.transpose(1,2,0)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
 
-
+d = a + c
+#Now it works because because a and c have the same size and shape.
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
-
+print(a)
+print(d)
 
 
 #12. Multiply a and c. Assign the result to e.
 
-
+e = a * c
 
 #13. Does e equal to a? Why or why not?
 
-
+print(e == a)
+#e and a are equal because all values of c ar equal to 1 so when we multiply a and c the the values stay the same
 
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
+d_max, d_min, d_mean = d.max(),d.min(),d.mean()
 
-
+print(f"max ={d_max},min = {d_min}, mean= {d_mean}")
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
-
+f = np.empty((2,3,5))
+print(f)
 
 
 """
@@ -74,8 +81,31 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
-
-
+i,v,z = -1,-1,-1
+for subd, subf in zip(d,f):
+    if i == 2:
+        i = -1
+    i += 1
+    for lisd,lisf in zip(subd,subf):
+        if v == 2:
+            v = -1
+        v += 1
+        for eld,elf in zip(lisd,lisf):
+       
+            if z == 4:
+                z = -1
+            z += 1
+            if eld > d_min and eld < d_mean:
+                f[i,v,z] = 25
+            elif eld > d_mean and eld < d_max:
+                f[i,v,z] = 75
+            elif eld == d_mean:
+                f[i,v,z] = 50
+            elif eld == d_min:
+                f[i,v,z] = 0
+            elif eld == d_max:
+                f[i,v,z] = 100
+print(f)
 
 
 """
@@ -89,6 +119,8 @@ array([[[1.85836099, 1.67064465, 1.62576044, 1.40243961, 1.88454931],
         [1.79129243, 1.74983003, 1.96028037, 1.85166831, 1.65450881],
         [1.18068344, 1.9587381 , 1.00656599, 1.93402165, 1.73514584]]])
 
+
+
 Your f should be:
 array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  25.,  25.,  25.],
@@ -98,6 +130,9 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
+
+print(d)
+print(f)
 
 
 """
@@ -111,4 +146,33 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'D',  'D',  'D',  'D',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
+
+
 """
+g = np.empty((2,3,5), dtype=object)
+
+i,v,z = -1,-1,-1
+for subd, subg in zip(d,g):
+    if i == 2:
+        i = -1
+    i += 1
+    for lisd,lisg in zip(subd,subg):
+        if v == 2:
+            v = -1
+        v += 1
+        for eld,elg in zip(lisd,lisg):
+       
+            if z == 4:
+                z = -1
+            z += 1
+            if eld > d_min and eld < d_mean:
+                g[i,v,z] = "B"
+            elif eld > d_mean and eld < d_max:
+                g[i,v,z] = "D"
+            elif eld == d_mean:
+                g[i,v,z] = "C"
+            elif eld == d_min:
+                g[i,v,z] = "A"
+            elif eld == d_max:
+                g[i,v,z] = "E"
+print(g)
