@@ -137,11 +137,15 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
 Again, you don't need Numpy in this question.
 """
 
+
+# el problema es que si creamos el array vacío usando el método "empty", luego sólo podemos meterle floats, no strings.
+
+# Lo que vamos a hacer es crear un array 2x3x5 con el string "a", para luego poder sobreescribirle strings:
+
 x=d.shape[0]
 y=d.shape[1]
 z=d.shape[2]
 
-# vamos a crear un array 2x3x5 con el string "a"
 g=[]
 h=[]
 m=[]
@@ -153,7 +157,7 @@ for j in range(y):
 for i in range(x):
     g.append(h)
 
-# aplicamos el bucle del ejercicio 16:    
+# aplicamos el bucle del ejercicio 16, pero asignandole a 'g' los valores de string "A", "B".. :    
 
 for i in range(x):
         for j in range(y):
