@@ -1,69 +1,56 @@
 #1. Import the NUMPY package under the name np.
-
-
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
-
-
+print(np.__version__)
+print(np.show_config())
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
-
-
+a = np.random.random(size=(2,3,5))
+a1 = np.random.randint(low=1,high=100,size=(2,3,5))
+a2 = np.random.rand(2,3,5)
 
 #4. Print a.
-
-
+print(a)
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
-
-
+b = np.ones((5,2,3),dtype=np.int16)
 
 #6. Print b.
-
-
+print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
-
-
-
+'''We transpose them.'''
+if np.transpose(a) == np.transpose(b):
+        True
 
 #8. Are you able to add a and b? Why or why not?
-
-
+'''No, they must have the same shape.'''
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
-
+c = np.transpose(b, (1, 2, 0))
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
-
-
+d = a + c
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
-
-
-
+print(a,d)
 
 #12. Multiply a and c. Assign the result to e.
-
-
+e = np.multiply(a,c)
 
 #13. Does e equal to a? Why or why not?
-
-
-
+np.array_equal(a,e)
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
-
-
-
+d_max = d.max()
+d_min = d.min()
+d_mean = d.mean()
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
-
-
-
+f = np.empty([2,3,5])
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
@@ -74,9 +61,19 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
-
-
-
+for i in range(d.shape[0]):
+    for t in range(d.shape[1]):
+        for u in range(d.shape[2]):
+            if d[i,t,u] == d_mean:
+                f[i,t,u] = 50
+            elif d[i,t,u] == d_max:
+                f[i,t,u] = 100
+            elif d[i,t,u] > d_min and d[i,t,u] < d_mean:
+                f[i,t,u] = 25
+            elif d[i,t,u] > d_mean and d[i,t,u] < d_max:
+                f[i,t,u] = 75
+            elif d[i,t,u] == d_min:
+                f[i,t,u] = 0
 
 """
 #17. Print d and f. Do you have your expected f?
@@ -98,7 +95,7 @@ array([[[ 75.,  75.,  75.,  25.,  75.],
         [ 75.,  75.,  75.,  75.,  75.],
         [ 25.,  75.,   0.,  75.,  75.]]])
 """
-
+print(d,f)
 
 """
 #18. Bonus question: instead of using numbers (i.e. 0, 25, 50, 75, and 100), how to use string values 
@@ -112,3 +109,21 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+g = np.full((2,3,5),"")
+
+for i in range(d.shape[0]):
+    for t in range(d.shape[1]):
+        for u in range(d.shape[2]):
+            if d[i,t,u] == d_mean:
+                g[i,t,u] = "C"
+            elif d[i,t,u] == d_max:
+                g[i,t,u] = "E"
+            elif d[i,t,u] > d_min and d[i,t,u] < d_mean:
+                g[i,t,u] = "B"
+            elif d[i,t,u] > d_mean and d[i,t,u] < d_max:
+                g[i,t,u] = "D"
+            elif d[i,t,u] == d_min:
+                g[i,t,u] = "A"
+                
+print(g)
