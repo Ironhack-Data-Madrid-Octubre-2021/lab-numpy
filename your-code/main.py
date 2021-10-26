@@ -1,70 +1,93 @@
 #1. Import the NUMPY package under the name np.
 
 
+import numpy as np
 
 #2. Print the NUMPY version and the configuration.
 
+#print(np.__version__)
 
 
 #3. Generate a 2x3x5 3-dimensional array with random values. Assign the array to variable "a"
 # Challenge: there are at least three easy ways that use numpy to generate random arrays. How many ways can you find?
 
-
-
+a = np.random.random((2,3,5))
+a1 = np.random.randint(8, size = (2,3,5))
+a3 = np.random.rand(5,2,3)
 #4. Print a.
-
+#print(a)
+#print(a1)
 
 
 #5. Create a 5x2x3 3-dimensional array with all values equaling 1.
 #Assign the array to variable "b"
 
-
+b = np.ones((5,2,3))
 
 #6. Print b.
 
-
+#print(b)
 
 #7. Do a and b have the same size? How do you prove that in Python code?
 
-
-
+a.size == b.size
+#if a.shape == b.shape:
+#        print(True)
+#else:
+#        print(False)
 
 #8. Are you able to add a and b? Why or why not?
 
-
+#c = np.array(a,b)
+'''
+no se pued añadir los arrays porque no coincide el shape no coincide
+TypeError: Cannot construct a dtype from an array
+'''
 
 #9. Transpose b so that it has the same structure of a (i.e. become a 2x3x5 array). Assign the transposed array to varialbe "c".
-
-
+a = np.random.random((2,3,5))
+b = np.ones((5,2,3))
+c = b.transpose(1,2,0)
 
 #10. Try to add a and c. Now it should work. Assign the sum to varialbe "d". But why does it work now?
-
-
+d = np.add(a,c)
+#print(d)
+'''
+Ahora se puede hacer porque coinciden en tamaño ambos arrays.El numero de columnas, elementos y filas coinciden entre ambos.
+'''
 
 #11. Print a and d. Notice the difference and relation of the two array in terms of the values? Explain.
 
+#print(a,d)
+'''
+Ambos arrays tienen el mismo numero de elementos 
+ambos tienen todos sus valores en un mismo rango pero distinto numero(el a tiene los valores entre 0-1 y d entre 1-2)'
 
-
+'''
 
 #12. Multiply a and c. Assign the result to e.
 
-
+e = a * c
+#print(e)
 
 #13. Does e equal to a? Why or why not?
-
-
-
+#print(a,e)
+'''
+si que son iguales puesto que el array c esta compuesto por unos.
+'''
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-
-
+d_max = d.max()
+d_min = d.min()
+d_mean = d.mean()
+#print(d_max,d_min,d_mean)
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
+f = np.empty((2,3,5))
 
-
-
+#print(f)
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
 If a value in d is larger than d_mean but smaller than d_max, assign 75 to the corresponding value in f.
@@ -74,9 +97,21 @@ Assign 100 to the corresponding value(s) in f for d_max in d.
 In the end, f should have only the following values: 0, 25, 50, 75, and 100.
 Note: you don't have to use Numpy in this question.
 """
+for i in range(d.shape[0]):
+    for j in range(d.shape[1]):
+        for k in range(d.shape[2]):
+            if d_min==d[i][j][k]:
+                f[i][j][k]=0
+            elif d_min<d[i][j][k] and d[i][j][k]<d_mean:
+                f[i][j][k]=25
+            elif d_mean==d[i][j][k]:
+                f[i][j][k]=50
+            elif d_mean<d[i][j][k] and d[i][j][k]<d_max:
+                f[i][j][k]=75
+            elif d[i][j][k]==d_max:
+                f[i][j][k]=100
 
-
-
+print(f)
 
 """
 #17. Print d and f. Do you have your expected f?
@@ -112,3 +147,19 @@ array([[[ 'D',  'D',  'D',  'B',  'D'],
         [ 'B',  'D',   'A',  'D', 'D']]])
 Again, you don't need Numpy in this question.
 """
+
+for j in range(d.shape[0]):
+        for i in range(d.shape[1]):
+                for x in range(d.shape[2]):
+                        if d_min < f[j][i][x] < d_mean:
+                                f[j][i][x]= 'B'
+                        elif f[j][i][x] == d_mean:
+                                f[j][i][x] = 'C'
+                        elif f[j][i][x] > d_mean and x < d_max:
+                               f[j][i][x] = 'D'
+                        elif f[j][i][x] == d_min:
+                                f[j][i][x] = 'A'
+                        elif f[j][i][x] == d_max:
+                                f[j][i][x] = 'E'
+
+                        
