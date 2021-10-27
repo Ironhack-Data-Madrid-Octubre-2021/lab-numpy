@@ -63,13 +63,14 @@ print(e)
 
 #14. Identify the max, min, and mean values in d. Assign those values to variables "d_max", "d_min", and "d_mean"
 
-d_max = d.min()
-d_min = d.max()
+d_max = d.max()
+d_min = d.min()
 d_mean = d.mean()
 
 #15. Now we want to label the values in d. First create an empty array "f" with the same shape (i.e. 2x3x5) as d using `np.empty`.
 
 f = np.empty([2,3,5])
+print(f)
 
 """
 #16. Populate the values in f. For each value in d, if it's larger than d_min but smaller than d_mean, assign 25 to the corresponding value in f.
